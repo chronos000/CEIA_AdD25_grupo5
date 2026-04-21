@@ -169,6 +169,7 @@ matplotlib>=3.4.0
 scipy>=1.7.0
 scikit-learn>=0.24.0
 tabulate>=0.10.0
+jinja2>=3.1.6
 ```
 
 ### Instalación
@@ -248,7 +249,7 @@ Dataset final listo para modelado
 
 ### Sección 0 — Importación de librerías
 
-Importación de `numpy`, `pandas`, `seaborn`, `geopandas`, `contextily`, `matplotlib`, `scipy` y `sklearn`.
+Importación de `numpy`, `pandas`, `seaborn`, `geopandas`, `contextily`, `matplotlib`, `scipy`, `jinja2` y `sklearn`.
 
 ---
 
