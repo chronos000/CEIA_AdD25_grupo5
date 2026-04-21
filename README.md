@@ -48,6 +48,7 @@ Para este trabajo se utilizó una snapshot de la cadena **Vea (Cencosud)**, que 
 ### Esquema de los datos
 
 Los tres archivos se unen mediante las claves:
+
 - `id_comercio`
 - `id_bandera`
 - `id_sucursal`
@@ -132,7 +133,8 @@ brew install git-lfs
 # Ubuntu / Debian
 sudo apt-get install git-lfs
 
-# Windows — descargá el instalador desde https://git-lfs.com
+# Windows — descargá el instalador desde https://git-lfs.com o intenta
+git lfs install
 ```
 
 **Paso 2 — Inicializar Git LFS en tu sistema**:
@@ -189,6 +191,7 @@ jupyter notebook "tp (grupo 5).ipynb"
 ```
 
 > **Nota sobre `geopandas`:** En Windows puede requerir instalación manual de dependencias. Recomendamos usar conda en ese caso:
+>
 > ```bash
 > conda install -c conda-forge geopandas contextily
 > ```
@@ -287,15 +290,19 @@ Se eliminan además las **features constantes** (varianza cero), que no aportan 
 ### Sección 4 — Identificación y tratamiento de errores, outliers e inconsistencias
 
 #### 4.1 Errores e inconsistencias
+
 - Se detectan y eliminan registros con `productos_precio_lista <= 10` (errores de carga evidentes).
 - Se verifican productos con `productos_cantidad_presentacion <= 0`.
 
 #### 4.2 Outliers
+
 - **Método IQR:** detección del rango aceptable para el precio de lista.
 - **Winsorización (Capping):** los valores de precio son recortados al rango **[P1, P99]** para mitigar el efecto de valores extremos sin perder registros.
+
   ```
   Precio capped al rango [P1, P99]
   ```
+
 - La distribución de precios es **fuertemente asimétrica y leptocúrtica**.
 
 ---
@@ -311,9 +318,11 @@ Se eliminan además las **features constantes** (varianza cero), que no aportan 
 ### Sección 6 — Preprocesamiento y limpieza
 
 #### 6.1 Selección de columnas
+
 Se seleccionan sólo las columnas relevantes para el modelo (ver tabla en §3).
 
 #### 6.2 Imputación de faltantes
+
 | Variable | Estrategia | Supuesto |
 |---|---|---|
 | `sucursales_latitud` / `sucursales_longitud` | Mediana a nivel provincia | MAR — la ausencia depende de si es sucursal web |
@@ -325,6 +334,7 @@ Se seleccionan sólo las columnas relevantes para el modelo (ver tabla en §3).
 Finalmente se eliminan las filas que aún contengan faltantes.
 
 #### 6.3 Split train / test
+
 El split se realiza **antes** de cualquier transformación que dependa de estadísticos (escalado, frequency encoding) para evitar **data leakage**.
 
 ---
@@ -370,6 +380,7 @@ Esta estrategia evita **data leakage**: los estadísticos de normalización (med
 ### Sección 9 — Correlación y selección de features
 
 #### 9.1 Matriz de correlación
+
 Heatmap de correlaciones entre todas las features numéricas y el target, calculado sobre el conjunto de train escalado.
 
 #### 9.2 Selección de features (filtros)
@@ -383,6 +394,7 @@ Se aplican tres métodos de filtro:
 | **Mutual Information** (`mutual_info_regression`) | Captura relaciones no lineales |
 
 **Resultados clave:**
+
 - `marca_freq`, `log_cantidad_presentacion` y `productos_cantidad_presentacion` muestran la **mayor relevancia** con el target.
 - `tipo_Hipermercado`, `tipo_Supermercado` y `sucursales_tipo_ord` tienen una **ínfima relación** con el target y se eliminan del dataset.
 
@@ -406,6 +418,7 @@ Se evalúa PCA como posible técnica de extracción de features:
 ### Secciones 11–12 — Dataset final y conclusiones
 
 El pipeline genera:
+
 - `X_train_scaled` y `X_test_scaled`: conjuntos de features numéricos, escalados y sin valores faltantes, listos para alimentar un modelo de regresión.
 - `y_train` y `y_test`: vectores del target `productos_precio_lista`.
 
