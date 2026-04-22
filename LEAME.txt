@@ -1,0 +1,4 @@
+Como el tp se debía centrar en un recorte de la base Precios Cuidados el extenso trabajo de recorte dado que el material estaba en el orden de la Big Data se realizaron en otras notebook, el material de fabricación y los elementos en estado crudo pueden encontrarse en:
+
+https://drive.google.com/drive/folders/1GqclRMOKeOrIUIJjtPRhS2YKyOFzK193?usp=sharing
+
